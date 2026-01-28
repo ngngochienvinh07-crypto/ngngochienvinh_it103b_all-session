@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let bookName = prompt("nhap ten sach:").trim().toUpperCase();
+        let authorName = prompt("nhap ten tac gia:").toUpperCase();
+        let price = parseFloat(prompt("nhap gia sach:"));
+        let publishYear = parseInt(prompt("nhap nam xuat ban:"));
+        let quantity = parseInt(prompt("nhap so luong sach:"));
+
+        const bookAge = Date().getFullYear() - publishYear;
+        let totalPrice = price * quantity;
+
+        let firstName = authorName.substring(0, 3);
+        let number = Math.floor(Math.random() * 1000);
+        let bookID = `${firstName}${publishYear} - ${number}`;
+
+        console.log(`------ PHIEU NHAP SACH ------`);
+        console.log(`Ten sach: ${bookName}`);
+        console.log(`Ten tac gia: ${authorName}`);
+        console.log(`Gia sach: ${price}`);
+        console.log(`Nam xuat ban: ${publishYear}`);
+        console.log(`So luong sach: ${quantity}`);
+        console.log(`Tuoi sach: ${bookAge} nam`);
+        console.log(`Tong gia tri: ${totalPrice}`);
+        console.log(`Ma sach: ${bookID}`);
+    </script>
+</body>
+</html>
