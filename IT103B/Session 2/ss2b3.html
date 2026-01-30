@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let tenSach = "";
+        let theLoai = "";
+        let tinhTrang = ""; 
+
+       
+        tenSach = prompt("Nhập tên sách:");
+        theLoai = prompt("Nhập thể loại sách (Khoa học / Lịch sử / Văn học / Truyện):");
+        tinhTrang = prompt("Nhập tình trạng sách (có sẵn / đã mượn):");
+
+
+        if (theLoai === "khoa học" || theLoai === "lịch sử") {
+        if (tinhTrang === "có sẵn") {
+            console.log("Sách này có sẵn trong thư viện");
+            alert("Sách này có sẵn trong thư viện");
+        } else {
+            console.log("Sách đã được mượn");
+        }
+        } else if (theLoai === "văn học" || theLoai === "truyện") {
+        console.log("Sách này có thể đọc giải trí");
+        alert("Sách này có thể đọc giải trí");
+        } else {
+        console.log("Thể loại không hợp lệ hoặc chưa được hỗ trợ!");
+        alert("Thể loại không hợp lệ hoặc chưa được hỗ trợ!");
+        }
+    </script>
+</body>
+</html>

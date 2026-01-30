@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let  bookname = prompt("Nhập tên sách bạn muốn mượn:");
+        let author = prompt("Nhập tên tác giả của sách:");
+        let year = +prompt("Nhập năm xuất bản của sách:");
+
+        if (year === 2026 ) {
+            console.log("đây là sách mới xuất bản.");
+
+        }else if (year < 2026 && year >=2021 ) {
+
+            console.log("đây là sách khá mới.")
+        }else {
+            console.log("đây là sách cũ.")
+        }
+    </script>
+</body>
+</html>
