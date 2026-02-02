@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Reservation - Dat muon truoc</title>
+</head>
+<body>
+  <script>
+    let tongYeuCau = 0;
+    let soDatThanhCong = 0;
+    let soBiTuChoi = 0;
+    let soChoXetDuyet = 0;
+
+    while (true) {
+      let tiepTuc = prompt("Co yeu cau dat muon truoc moi khong? (co/khong)")
+        .trim()
+        .toLowerCase();
+
+      if (tiepTuc === "khong") break;
+
+      if (tiepTuc !== "co") {
+        alert("Chi duoc nhap 'co' hoac 'khong'!");
+        continue;
+      }
+
+      let tenBanDoc = prompt("Nhap ten ban doc:");
+      let maSach = prompt("Nhap ma sach muon dat truoc:");
+      let tenSach = prompt("Nhap ten sach (tham khao):");
+
+      let soNgayCho;
+      while (true) {
+        soNgayCho = parseInt(prompt("Nhap so ngay du kien cho (so nguyen >= 1):"));
+        if (!isNaN(soNgayCho) && soNgayCho >= 1) break;
+        alert("So ngay cho phai la so nguyen >= 1. Nhap lai!");
+      }
+
+      let uuTien;
+      while (true) {
+        uuTien = parseInt(prompt("Nhap uu tien (1-SV, 2-GV/NCS, 3-Dac cach):"));
+        if (uuTien === 1 || uuTien === 2 || uuTien === 3) break;
+        alert("Uu tien chi duoc nhap 1, 2 hoac 3!");
+      }
+
+      tongYeuCau++;
+
+      if (soNgayCho > 45) {
+        console.log("Tu choi: Thoi gian cho qua lau (>45 ngay)");
+        soBiTuChoi++;
+      } 
+      else if (uuTien === 3) {
+        console.log("Dat truoc thanh cong - Uu tien dac cach cao nhat");
+        soDatThanhCong++;
+      } 
+      else if (uuTien === 2 && soNgayCho <= 30) {
+        console.log("Dat truoc thanh cong - Uu tien giang vien/nghien cuu");
+        soDatThanhCong++;
+      } 
+      else if (uuTien === 1 && soNgayCho <= 21) {
+        console.log("Dat truoc thanh cong");
+        soDatThanhCong++;
+      } 
+      else {
+        console.log("Dat truoc tam thoi - Cho xet duyet them");
+        soChoXetDuyet++;
+      }
+    }
+
+    console.log("===== BAO CAO CUOI CA =====");
+    console.log("Tong so yeu cau da xu ly: " + tongYeuCau);
+    console.log("So yeu cau dat thanh cong: " + soDatThanhCong);
+    console.log("So yeu cau bi tu choi: " + soBiTuChoi);
+    console.log("So yeu cau cho xet duyet: " + soChoXetDuyet);
+  </script>
+</body>
+</html>
