@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let overdueBookArr = [];
+        let quantity = +prompt("Hôm nay có bao nhiêu cuốn sách bị trả muộn?");
+
+        if (quantity <= 0) {
+            console.log("Số lượng sách không hợp lệ!");
+        } else {
+
+            for (let i = 1; i <= quantity; i++) {
+                let bookName = prompt(`Nhập tên cuốn sách bị trả muộn thứ ${i}:`);
+                overdueBookArr.push(bookName);
+            }
+
+            console.log(`Tổng số sách bị trả muộn: ${overdueBookArr.length}`);
+
+            console.log("Danh sách sách bị trả muộn:");
+            for (let i = 1; i <= overdueBookArr.length; i++) {
+                console.log(`${i}. ${overdueBookArr[i - 1]}`);
+            }
+
+            let countLongNameBook = 0;
+            for (let i = 1; i <= overdueBookArr.length; i++) {
+                if (overdueBookArr[i].length > 20) {
+                    countLongNameBook++;
+                }
+            }
+            console.log(`Số lượng sách có tên dài hơn 20 ký tự: ${countLongNameBook}`);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        let booksId = [];
+        let booksName = [];
+        let inventoryQuantity = [];
+
+        let quantity = +prompt("Có bao nhiêu loại sách cần kiểm tra bổ sung hôm nay?");
+
+        if (quantity <= 0) {
+            console.log("Số lượng loại sách không hợp lệ!");
+        } else {
+
+            for (let i = 0; i < quantity; i++) {
+                let id = prompt(`Nhập mã sách thứ ${i + 1}:`);
+                while (!id || id.trim() === "") {
+                    id = prompt("Mã sách không được để trống, nhập lại:");
+                }
+
+                let name = prompt(`Nhập tên sách thứ ${i + 1}:`);
+                while (!name || name.trim() === "") {
+                    name = prompt("Tên sách không được để trống, nhập lại:");
+                }
+
+                let qty = +prompt(`Nhập số lượng tồn kho hiện tại thứ ${i + 1}:`);
+                while (isNaN(qty) || qty < 0) {
+                    qty = +prompt("Số lượng phải là số nguyên ≥ 0, nhập lại:");
+
+                }
+
+                booksId.push(id);
+                booksName.push(name);
+                inventoryQuantity.push(qty);
+            }
+
+            console.log(`Tổng số loại sách đang kiểm tra: ${booksId.length}`);
+
+            let demThap = 0;
+            for (let i = 0; i < inventoryQuantity.length; i++) {
+                if (inventoryQuantity[i] <= 5) {
+                    demThap++;
+                }
+            }
+            console.log(`Số lượng sách có tồn kho ≤ 5 bản: ${demThap}`);
+
+            console.log("Mã sách đã hết hàng (tồn kho = 0):");
+            for (let i = 0; i < inventoryQuantity.length; i++) {
+                if (inventoryQuantity[i] === 0) {
+                    console.log(booksId[i]);
+                }
+            }
+
+            console.log("Danh sách chi tiết:");
+            for (let i = 0; i < booksId.length; i++) {
+                console.log(`${i + 1}. Mã: ${booksId[i]}, Tên: ${booksName[i]}, Tồn kho: ${inventoryQuantity[i]}`);
+            }
+        }
+    </script>
+</body>
+</html>

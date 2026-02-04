@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let readerCardIds = [];
+      let readerNames = [];
+      let borrowedBookCodes = [];
+      let overdueDays = [];
+
+      let n = +prompt("Hôm nay có bao nhiêu bạn đọc bị ghi nhận quá hạn? ");
+
+      for (let i = 1; i <= n; i++) {
+        let cardId = prompt("Nhập mã thẻ bạn đọc thứ " + i + ": ");
+
+        let duplicate;
+        do {
+          duplicate = false;
+          for (let j = 0; j < readerCardIds.length; j++) {
+            if (readerCardIds[j] === cardId) {
+              duplicate = true;
+              break;
+            }
+          }
+          if (duplicate) {
+            cardId = prompt("Mã thẻ bị trùng! Nhập lại mã thẻ bạn đọc thứ " + i + ": ");
+          }
+        } while (duplicate);
+
+        let name = prompt("Nhập tên bạn đọc thứ " + i + ": ");
+        while (name === "" || name === null) {
+          name = prompt("Tên không được để trống! Nhập lại tên bạn đọc thứ " + i + ": ");
+        }
+
+        let books = prompt(
+          "Nhập chuỗi mã sách đang mượn (cách nhau bởi dấu phẩy) của bạn đọc thứ " +
+            i +
+            ": "
+        );
+
+        let days = +prompt("Nhập số ngày quá hạn của bạn đọc thứ " + i + ": ");
+
+        readerCardIds.push(cardId);
+        readerNames.push(name);
+        borrowedBookCodes.push(books);
+        overdueDays.push(days);
+      }
+
+      console.log(`Danh sách bạn đọc quá hạn (${readerCardIds.length} người):`);
+      for (let i = 0; i < readerCardIds.length; i++) {
+        console.log(
+          `${i + 1}. Mã thẻ: ${readerCardIds[i]} | Tên: ${readerNames[i]} | Sách đang mượn: ${borrowedBookCodes[i]} | Quá hạn: ${overdueDays[i]} ngày`
+        );
+      }
+
+      let countOver10 = 0;
+      for (let i = 0; i < overdueDays.length; i++) {
+        if (overdueDays[i] >= 10) {
+          countOver10++;
+        }
+      }
+      console.log("");
+      console.log("Tổng số bạn đọc quá hạn ≥ 10 ngày: " + countOver10 + " người");
+
+      let result = "";
+      for (let i = 0; i < borrowedBookCodes.length; i++) {
+        let codes = borrowedBookCodes[i].toUpperCase();
+
+        if (codes.indexOf("JS") !== -1 && codes.indexOf("PYT") !== -1) {
+          if (result === "") result = readerCardIds[i];
+          else result += ", " + readerCardIds[i];
+        }
+      }
+      console.log("");
+      console.log("Các bạn đọc đang mượn cả sách JS* và PYT*: " + result);
+
+      let maxIndex = 0;
+      for (let i = 1; i < overdueDays.length; i++) {
+        if (overdueDays[i] > overdueDays[maxIndex]) {
+          maxIndex = i;
+        }
+      }
+      console.log("");
+      console.log(
+        "Bạn đọc có số ngày quá hạn cao nhất: " +
+          readerNames[maxIndex] +
+          " (" +
+          overdueDays[maxIndex] +
+          " ngày)"
+      );
+
+      let countOver7 = 0;
+      for (let i = 0; i < overdueDays.length; i++) {
+        if (overdueDays[i] >= 7) countOver7++;
+      }
+
+      console.log("");
+      if (countOver7 === 0) {
+        console.log("Tình hình trả sách hôm nay khá tốt!");
+      } else if (countOver7 >= 1 && countOver7 <= 4) {
+        console.log("Cần gửi nhắc nhở cho một số bạn đọc!");
+      } else {
+        console.log("Tình trạng quá hạn nghiêm trọng! Cần liên hệ ngay!");
+      }
+    </script>
+  </body>
+</html>
