@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let players = [
+            "P001-Nguyễn Văn A-Thủ môn",
+            "P002-Trần Thị B-Hậu vệ",
+            "P003-Lê Văn C-Hậu vệ",
+            "P004-Phạm Văn D-Tiền vệ",
+            "P005-Hoàng Thị E-Tiền đạo",
+            "P006-Vũ Minh F-Tiền đạo",
+            "P007-Đặng Văn G-Thủ môn",
+        ];
+
+
+        function printTeamRoster() {
+            console.log("=== DANH SÁCH CẦU THỦ ===");
+            players.forEach((player, index) => {
+
+                const parts = player.split("-");
+                const code = parts[0];      
+                const name = parts[1];     
+                const position = parts[2];  
+                
+                console.log(`${index + 1} | ${code} | ${name} | ${position}`);
+            });
+        }
+
+        function countPlayerByPostion(players) {
+            const positionCount = {};
+            
+            players.forEach((player) => {
+
+                const position = player.split("-")[2];
+
+                if (positionCount[position]) {
+                    positionCount[position]++;
+                } else {
+                    positionCount[position] = 1;
+                }
+            });
+            
+            return positionCount;
+        }
+
+        function hasGoalkeeper() {
+            return players.some(player => player.includes("Thủ môn"));
+        }
+
+        console.log("\n=== KẾT QUẢ ===\n");
+
+        printTeamRoster();
+
+        console.log("\n=== THỐNG KÊ CẦU THỦ THEO VỊ TRÍ ===");
+        const positionStats = countPlayerByPostion(players);
+        console.log(positionStats);
+
+        console.log("\n=== KIỂM TRA THỦ MÔN ===");
+        console.log("Đội có thủ môn:", hasGoalkeeper());
+    </script>
+</body>
+</html>

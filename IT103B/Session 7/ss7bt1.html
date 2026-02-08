@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Quan ly doi bong</title>
+</head>
+<body>
+<script>
+    let playerIds = [];
+    let playerPositions = [];
+
+    let n;
+    do {
+       n = parseInt(prompt("Có bao nhiêu cầu thủ cần nhập vào đội bóng ?"));
+    } while (isNaN(n) || n <= 0);
+
+    for (let i = 0; i < n; i++) {
+       console.log("Nhập cầu thủ " + (i + 1) + " :");
+
+       let id;
+       let isDuplicate;
+    do {
+      id = prompt("Mã cầu thủ :");
+      isDuplicate = false;
+      for (let j = 0; j < playerIds.length; j++) {
+        if (playerIds[j] === id) {
+          isDuplicate = true;
+          alert("Mã cầu thủ đã tồn tại!");
+          break;
+        }
+      }
+    } while (id === "" || isDuplicate);
+
+    playerIds.push(id);
+
+    let choice;
+    let position;
+
+    do {
+      choice = parseInt(
+        prompt("Vị trí (1: Thủ môn 2: Hậu vệ 3: Tiền vệ 4: Tiền đạo) :")
+      );
+    } while (choice < 1 || choice > 4);
+
+    if (choice === 1) 
+       position = "Thủ môn";
+    else if (choice === 2) 
+       position = "Hậu vệ";
+    else if (choice === 3) 
+       position = "Tiền vệ";
+    else  
+       position = "Tiền đạo";
+
+    playerPositions.push(position);
+  }
+
+  function printTeamRoster() {
+    console.log("\nĐội bóng hiện tại (" + playerIds.length + " cầu thủ):\n");
+    for (let i = 0; i < playerIds.length; i++) {
+      console.log((i + 1) + ". " + playerIds[i] + " - " + playerPositions[i]);
+    }
+  }
+
+  function findPlayersByPosition(position) {
+    let indexes = [];
+    for (let i = 0; i < playerPositions.length; i++) {
+      if (playerPositions[i] === position) {
+        indexes.push(i);
+      }
+    }
+    return indexes;
+  }
+
+  let findChoice;
+  let findPosition;
+  do {
+    findChoice = parseInt(
+      prompt(
+        "Nhập vị trí cầu thủ muốn đếm số lượng (1: Thủ môn , 2: Hậu vệ ,3: Tiền vệ, 4: Tiền đạo)"
+      )
+    );
+  } while (findChoice < 1 || findChoice > 4);
+
+  if (findChoice === 1) findPosition = "Thủ môn";
+  else if (findChoice === 2) findPosition = "Hậu vệ";
+  else if (findChoice === 3) findPosition = "Tiền vệ";
+  else findPosition = "Tiền đạo";
+
+  printTeamRoster();
+
+  let result = findPlayersByPosition(findPosition);
+  console.log("\nSố cầu thủ ở vị trí " + findPosition + ": " + result.length);
+  console.log("Các chỉ số cầu thủ ở vị trí " + findPosition + ": " + result);
+</script>
+</body>
+</html>
