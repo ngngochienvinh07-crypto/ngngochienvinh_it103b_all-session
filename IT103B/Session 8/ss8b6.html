@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const players = [
+            "Messi - Forward - 25 - 15 - 34",
+            "Ronaldo - Forward - 30 - 10 - 38",
+            "Neymar - Forward - 18 - 20 - 32",
+            "De Bruyne - Midfielder - 8 - 25 - 35",
+            "Kante - Midfielder - 2 - 5 - 36",
+            "Van Dijk - Defender - 5 - 3 - 33",
+            "Alisson - Goalkeeper - 0 - 1 - 37"
+        ];
+
+        function reportByPosition(players) {
+
+            const data = players.map(function (player) {
+                const parts = player.split(" - ");
+                return {
+                    name: parts[0],
+                    position: parts[1],
+                    goals: Number(parts[2]),
+                    assists: Number(parts[3]),
+                    matches: Number(parts[4])
+                };
+            });
+
+            const groups = {};
+
+            data.forEach(function (player) {
+                if (!groups[player.position]) {
+                    groups[player.position] = [];
+                }
+                groups[player.position].push(player);
+            });
+
+            console.log("BÁO CÁO HIỆU SUẤT THEO VỊ TRÍ\n");
+
+            let totalTeamGoals = 0;
+
+            Object.keys(groups).forEach(function (position) {
+
+                const list = groups[position];
+
+                const totalGoals = list.reduce(function (sum, p) {
+                    return sum + p.goals;
+                }, 0);
+
+                const totalAssists = list.reduce(function (sum, p) {
+                    return sum + p.assists;
+                }, 0);
+
+                const totalMatches = list.reduce(function (sum, p) {
+                    return sum + p.matches;
+                }, 0);
+
+                const efficiency = ((totalGoals + totalAssists) / totalMatches).toFixed(2);
+
+                totalTeamGoals += totalGoals;
+
+                console.log(position + ":");
+                console.log("- Số cầu thủ:", list.length);
+                console.log("- Tổng bàn thắng:", totalGoals);
+                console.log("- Tổng kiến tạo:", totalAssists);
+                console.log("- Tổng số trận:", totalMatches);
+                console.log("- Trung bình hiệu suất/trận:", efficiency);
+                console.log("");
+            });
+
+            console.log("------------------------");
+            console.log("Tổng bàn thắng toàn đội :", totalTeamGoals);
+        }
+
+        reportByPosition(players);
+    </script>
+</body>
+
+</html>
