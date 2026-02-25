@@ -18,6 +18,7 @@
       "Van Dijk - Defender",
       "Alisson - Goalkeeper",
     ];
+
     function filterPlayersByPosition(position, players) {
       return players.filter(function (item) {
         let arr = item.split(" - ");
@@ -25,6 +26,7 @@
         return pos === position;
       });
     }
+
     console.log(filterPlayersByPosition("Midfielder", players));
     console.log(filterPlayersByPosition("Forward", players));
   </script>

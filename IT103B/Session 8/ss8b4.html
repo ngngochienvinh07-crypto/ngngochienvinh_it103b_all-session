@@ -9,7 +9,7 @@
 
 <body>
     <script>
-        const players = [
+        const playerData = [
             "Messi - Forward - 25",
             "Ronaldo - Forward - 30",
             "Neymar - Forward - 18",
@@ -19,18 +19,14 @@
             "Alisson - Goalkeeper - 0"
         ];
 
-        function getReversedNames(players) {
-            let names = players.map(function (player) {
-                let parts = player.split(" - ");
-                let name = parts[0];
-                return name;
-            });
-            names.reverse();
-            return names;
+        function reversePlayerNames(list) {
+            return list
+                .map(item => item.split(" - ")[0])
+                .reverse();
         }
 
-        let result = getReversedNames(players);
-        console.log(result);
+        const reversedList = reversePlayerNames(playerData);
+        console.log(reversedList);
     </script>
 </body>
 

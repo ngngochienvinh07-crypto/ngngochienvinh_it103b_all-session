@@ -9,7 +9,7 @@
 
 <body>
     <script>
-        const playerNames = [
+        const playerList = [
             "Messi",
             "Ronaldo",
             "Neymar",
@@ -18,15 +18,14 @@
             "Van Dijk",
             "Alisson",
         ];
- 
-        function getUpperNames(players) {
-            return players.map(function (name) {
-                return name.toUpperCase();
-            });
+
+        function convertToUpper(arr) {
+            return arr.map(name => name.toUpperCase());
         }
 
-        const result = getUpperNames(playerNames);
-        console.log(result);
+        const upperPlayers = convertToUpper(playerList);
+        console.log(upperPlayers);
+    </script>
     </script>
 </body>
 
