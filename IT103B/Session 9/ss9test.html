@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let ordors = ["Đơn hàng A", "Đơn hàng B", "Đơn hàng C", "Đơn hàng D", "Đơn hàng E"];
+        let reverues = [1500, 2800, 1200, -500, 3200];
+
+        reverues.forEach(element => {
+            if (element < 0) {
+                console.log(true);
+            } else if (element > 500) {
+                console.log(false);
+            }
+        });
+
+        let netProfits = reverues.map(element => element * 0.9);
+        console.log(netProfits);
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let hoiThuThu = parseInt(prompt("nhập số lượt mượn trong ngày "));
+        let tongLuotMuon = 0;
+
+        for (let i =1 ; i<= hoiThuThu ; i++){
+            let tenNguoiMuon = prompt(`Lượt ${i} - Nhập tên người mượn:`);
+            let tenSach = prompt(`Lượt ${i} - Nhập tên sách:`);
+            tongLuotMuon++;
+
+            let soNgayMuon ;
+            while (true) {
+                soNgayMuon = parseInt(prompt(`Lượt ${i} - Nhập số ngày mượn (1-30):`));
+
+                if (!isNaN(soNgayMuon) && soNgayMuon >= 1 && soNgayMuon <= 30) {
+                    break;
+                } else {
+                    alert("Số ngày mượn phải từ 1 đến 30!");
+                }
+            }
+
+            if (soNgayMuon > 14) {
+                console.log(`Lượt ${i}: Cảnh báo: Thời gian mượn vượt quy định (tối đa 14 ngày)`);
+            } else {
+                console.log(`Lượt ${i}: Mượn thành công`);
+            }
+        }
+        console.log(`Tổng số lượt mượn trong ngày: ${tongLuotMuon}`);
+        
+    </script>
+   
+</body>
+</html>

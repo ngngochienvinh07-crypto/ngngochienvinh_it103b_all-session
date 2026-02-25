@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // --- Cấu trúc chương trình chính ---
+        function runLibrarySystem() {
+            // 1. CHỨC NĂNG BẢO MẬT (Sử dụng vòng lặp while)
+            let loginAttempts = 0;
+            let isAuthenticated = false;
+
+            while (loginAttempts < 3) {
+                let username = prompt("Mời bạn nhập tài khoản:");
+                let password = prompt("Mời bạn nhập mật khẩu:");
+
+                if (username === "admin" && password === "12345") {
+                    alert("Đăng nhập thành công!");
+                    isAuthenticated = true;
+                    break; // Thoát khỏi vòng lặp đăng nhập
+                } else {
+                    loginAttempts++;
+                    let remaining = 3 - loginAttempts;
+
+                    // Thông báo lỗi chi tiết
+                    if (username !== "admin" && password !== "12345") {
+                        alert(`Sai cả tài khoản và mật khẩu! Bạn còn ${remaining} lần thử.`);
+                    } else if (username !== "admin") {
+                        alert(`Sai tài khoản! Bạn còn ${remaining} lần thử.`);
+                    } else {
+                        alert(`Sai mật khẩu! Bạn còn ${remaining} lần thử.`);
+                    }
+                }
+            }
+
+            if (!isAuthenticated) {
+                alert("Tài khoản đã bị khóa do nhập sai quá 3 lần!");
+                return; // Kết thúc toàn bộ chương trình
+            }
+
+            // 2. MENU CHỨC NĂNG (Sử dụng vòng lặp do-while)
+            let choice;
+            do {
+                let menu = "--- HỆ THỐNG QUẢN TRỊ THƯ VIỆN ---\n";
+                menu += "1. Phân loại mã số sách (Chẵn/Lẻ)\n";
+                menu += "2. Thiết kế sơ đồ kho sách (Dạng lưới)\n";
+                menu += "3. Dự toán phí bảo trì sách theo năm\n";
+                menu += "4. Tìm mã số sách may mắn\n";
+                menu += "5. Thoát\n";
+                menu += "Vui lòng nhập lựa chọn của bạn (1-5):";
+
+                choice = Number(prompt(menu));
+
+                switch (choice) {
+                    case 1:
+                        classifyBookIDs();
+                        break;
+                    case 2:
+                        designWarehouseMap();
+                        break;
+                    case 3:
+                        estimateMaintenanceCosts();
+                        break;
+                    case 4:
+                        findLuckyBooks();
+                        break;
+                    case 5:
+                        alert("Hệ thống đang đăng xuất... Hẹn gặp lại!");
+                        break;
+                    default:
+                        alert("Lựa chọn không hợp lệ, vui lòng thử lại!");
+                }
+            } while (choice !== 5);
+        }
+
+        // --- Chi tiết các hàm chức năng ---
+
+        // Chức năng 1: Phân loại mã số sách
+        function classifyBookIDs() {
+            let totalBooks = 0;
+            let evenBooks = 0; // Sách khoa học
+            let oddBooks = 0; // Sách nghệ thuật
+            let bookId;
+
+            alert("Nhập các mã số sách (Nhập 0 để dừng lại):");
+
+            while (true) {
+                bookId = Number(prompt("Nhập mã số sách:"));
+
+                if (isNaN(bookId)) {
+                    alert("Vui lòng nhập số nguyên hợp lệ!");
+                    continue;
+                }
+                if (bookId === 0) break;
+
+                totalBooks++;
+                if (bookId % 2 === 0) {
+                    evenBooks++;
+                } else {
+                    oddBooks++;
+                }
+            }
+
+            console.log("--- Kết quả phân loại mã sách ---");
+            console.log(`- Tổng số lượng mã sách đã nhập: ${totalBooks}`);
+            console.log(`- Số mã chẵn (Sách khoa học): ${evenBooks}`);
+            console.log(`- Số mã lẻ (Sách nghệ thuật): ${oddBooks}`);
+            alert("Đã phân loại xong! Xem kết quả tại Console (F12).");
+        }
+
+        // Chức năng 2: Thiết kế sơ đồ kho (Nested Loop)
+        function designWarehouseMap() {
+            let rows = Number(prompt("Nhập số hàng của kho:"));
+            let cols = Number(prompt("Nhập số cột của kho:"));
+
+            if (isNaN(rows) || isNaN(cols) || rows <= 0 || cols <= 0) {
+                alert("Số hàng và cột phải là số dương!");
+                return;
+            }
+
+            console.log(`--- Bản đồ kho sách (${rows}x${cols}) ---`);
+            for (let i = 1; i <= rows; i++) {
+                let rowLayout = "";
+                for (let j = 1; j <= cols; j++) {
+                    let position = `[${i}-${j}]`;
+                    if (i === j) {
+                        position += "(Kệ ưu tiên)";
+                    }
+                    rowLayout += position + "  ";
+                }
+                console.log(rowLayout); // In từng hàng ra màn hình console
+            }
+            alert("Đã in bản đồ kho ra Console (F12).");
+        }
+
+        // Chức năng 3: Dự toán phí bảo trì
+        function estimateMaintenanceCosts() {
+            let quantity = Number(prompt("Nhập số lượng sách hiện có:"));
+            let currentCostPerBook = Number(prompt("Nhập phí bảo trì cho 1 cuốn (VNĐ):"));
+            let years = Number(prompt("Nhập số năm dự toán:"));
+
+            if (isNaN(quantity) || isNaN(currentCostPerBook) || isNaN(years)) {
+                alert("Dữ liệu nhập vào phải là số!");
+                return;
+            }
+
+            console.log("--- Dự toán phí bảo trì sách theo năm ---");
+            let totalCost;
+            for (let year = 1; year <= years; year++) {
+                totalCost = quantity * currentCostPerBook;
+                console.log(
+                    `Năm ${year}: ${totalCost.toLocaleString()} VNĐ (Đơn giá: ${currentCostPerBook.toFixed(0)}/cuốn)`,
+                );
+
+                // Tăng phí bảo trì thêm 10% cho năm kế tiếp
+                currentCostPerBook = currentCostPerBook * 1.1;
+            }
+            alert("Đã hoàn thành bảng dự toán tại Console.");
+        }
+
+        // Chức năng 4: Tìm mã số sách may mắn
+        function findLuckyBooks() {
+            let n = Number(
+                prompt("Bạn muốn kiểm tra các mã sách từ 1 đến bao nhiêu? (Nhập N):"),
+            );
+
+            if (isNaN(n) || n <= 0) {
+                alert("Vui lòng nhập số N dương!");
+                return;
+            }
+
+            let luckyCount = 0;
+            let luckyList = "";
+
+            console.log(
+                `--- Danh sách mã sách may mắn (Bội số của 3, không chia hết cho 5) ---`,
+            );
+            for (let i = 1; i <= n; i++) {
+                if (i % 3 === 0 && i % 5 !== 0) {
+                    luckyList += i + " ";
+                    luckyCount++;
+                }
+            }
+
+            console.log(luckyList || "Không có mã nào thỏa mãn.");
+            console.log(`=> Tổng cộng có ${luckyCount} mã may mắn.`);
+            alert(`Tìm thấy ${luckyCount} mã may mắn. Xem chi tiết tại Console.`);
+        }
+
+        runLibrarySystem();
+    </script>
+</body>
+</html>
