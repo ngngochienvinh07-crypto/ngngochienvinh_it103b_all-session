@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let students = [];
+        let choice;
+
+        do {
+            choice = prompt(
+                `--- HỆ THỐNG QUẢN LÝ SINH VIÊN ---
+            1. Create Student (Thêm sinh viên)
+            2. Read All Students (Xem danh sách)
+            3. Filter Scholarship Candidates (Lọc học bổng)
+            4. Update Student Profile (Cập nhật hồ sơ)
+            5. Delete Record (Xóa bản ghi)
+            6. Compliance Verification (Kiểm tra dữ liệu)
+            7. Academic Statistics (Thống kê GPA)
+            8. Data Normalization (Chuẩn hóa tên)
+            0. Thoát chương trình`);
+
+            if (choice === null || choice === "0") {
+                console.log("Thoát chương trình");
+                break;
+            }
+
+            switch (choice) {
+                case "1":
+                    let id = prompt("Nhập ID:");
+                    let name = prompt("Nhập tên:");
+                    let age = +prompt("Nhập tuổi:");
+                    let gpa = +prompt("Nhập GPA:");
+                    let status = prompt("Nhập trạng thái (active/inactive):").toLowerCase();
+
+                    students.push({ id, name, age, gpa, status });
+                    console.log("Đã thêm sinh viên:", students[students.length - 1]);
+                    break;
+
+                case "2":
+                    if (students.length === 0) {
+                        console.log("Danh sách trống");
+                    } else {
+                        console.table(students);
+                    }
+                    break;
+
+                case "3":
+                    let scholars = students.filter((sv) => sv.gpa > 8);
+
+                    if (scholars.length === 0) {
+                        console.log("Không có sinh viên đạt học bổng");
+                    } else {
+                        console.table(scholars);
+                    }
+                    break;
+
+                case "4":
+                    let updateId = prompt("Nhập ID cần cập nhật:");
+                    let studentToUpdate = students.find((sv) => sv.id === updateId);
+
+                    if (studentToUpdate) {
+                        let newName = prompt("Tên mới:", studentToUpdate.name);
+                        let newGpa = prompt("GPA mới:", studentToUpdate.gpa);
+
+                        if (newName !== "" && newName !== null) studentToUpdate.name = newName;
+                        if (newGpa !== "" && newGpa !== null) studentToUpdate.gpa = Number(newGpa);
+
+                        console.log("Đã cập nhật:", studentToUpdate);
+                    } else {
+                        console.log("Không tìm thấy sinh viên");
+                    }
+                    break;
+
+                case "5":
+                    let deleteId = prompt("Nhập ID cần xóa:");
+                    let before = students.length;
+
+                    students = students.filter((sv) => sv.id !== deleteId);
+
+                    if (students.length < before) {
+                        console.log("Đã xóa thành công");
+                    } else {
+                        console.log("Không tìm thấy sinh viên");
+                    }
+                    break;
+
+                case "6":
+                    if (students.length === 0) {
+                        console.log("Danh sách trống");
+                    } else {
+                        let hasUnder18 = students.some((sv) => sv.age < 18);
+                        let allActive = students.every((sv) => sv.status === "active");
+
+                        console.log("Có sinh viên dưới 18:", hasUnder18);
+                        console.log("Tất cả đều active:", allActive);
+                    }
+                    break;
+
+                case "7":
+                    if (students.length === 0) {
+                        console.log("Danh sách trống");
+                    } else {
+                        let total = students.reduce((sum, sv) => sum + sv.gpa, 0);
+                        let avg = total / students.length;
+
+                        console.log("GPA trung bình:", avg.toFixed(2));
+                    }
+                    break;
+
+                case "8":
+                    if (students.length === 0) {
+                        console.log("Danh sách trống");
+                    } else {
+                        let normalized = students.map((sv) => ({
+                            ...sv,
+                            name: sv.name.toUpperCase(),
+                        }));
+
+                        console.table(normalized);
+                    }
+                    break;
+
+                default:
+                    console.log("Lựa chọn không hợp lệ");
+            }
+        } while (choice !== "0");
+    </script>
+</body>
+
+</html>
