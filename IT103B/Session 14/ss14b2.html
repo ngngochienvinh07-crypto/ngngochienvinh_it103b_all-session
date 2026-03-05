@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Danh Sách Sản Phẩm Chợ Tết</h1>
+
+    <ul id="product-list"></ul>
+
+    <form id="product-form">
+        <input type="text" id="product-name" placeholder="Tên sản phẩm">
+        <input type="number" id="product-price" placeholder="Giá (VND)">
+        <button type="submit">Thêm Sản Phẩm</button>
+    </form>
+    
+    <script>
+        const products = [
+            { id: 1, name: "Bánh Chưng", price: 150000 },
+            { id: 2, name: "Giò Lụa", price: 180000 },
+            { id: 3, name: "Cành Đào", price: 500000 },
+            { id: 4, name: "Mứt Tết", price: 120000 },
+            { id: 5, name: "Bao Lì Xì", price: 25000 },
+            { id: 6, name: "Dưa Hấu Tết", price: 80000 }
+        ];
+
+        const productList = document.getElementById("product-list");
+        const form = document.getElementById("product-form");
+        const nameInput = document.getElementById("product-name");
+        const priceInput = document.getElementById("product-price");
+
+        function renderProduct(product) {
+
+            const li = document.createElement("li");
+            li.className = "product-item";
+
+            const name = document.createElement("p");
+            name.textContent = product.name;
+
+            const price = document.createElement("p");
+            price.textContent = product.price + " VND";
+
+            li.appendChild(name);
+            li.appendChild(price);
+
+            productList.appendChild(li);
+
+        }
+
+        products.forEach(function (product) {
+            renderProduct(product);
+        });
+
+        form.addEventListener("submit", function (event) {
+
+            event.preventDefault();
+
+            const name = nameInput.value;
+            const price = priceInput.value;
+
+            const newProduct = {
+                id: products.length + 1,
+                name: name,
+                price: price
+            };
+
+            products.push(newProduct);
+
+            renderProduct(newProduct);
+
+            nameInput.value = "";
+            priceInput.value = "";
+
+        });
+    </script>
+</body>
+
+</html>
