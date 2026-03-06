@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo List</title>
+    <link rel="stylesheet" href="./index.css" />
+</head>
+
+<body>
+    <div class="container">
+        <h1>📝 Todo List</h1>
+
+        <div class="input-row">
+            <input type="text" id="taskInput" placeholder="Nhập công việc..." />
+            <button id="btn">Thêm</button>
+        </div>
+
+        <ul id="taskList">
+            <li>Quét nhà</li>
+            <li>Giặt quần áo</li>
+        </ul>
+    </div>
+
+    <script>
+        let list = [];
+
+        let input = document.getElementById("taskInput");
+        let task = document.getElementById("taskList");
+        let btn = document.getElementById("btn");
+
+        btn.addEventListener("click", create);
+
+        function create() {
+            let getInput = input.value;
+
+            let newTask = {
+                name: input.value
+            }
+            list.push(newTask);
+            input.value = ``;
+            task.innerHTML = `
+                <ul>
+                    <li>${newTask.name}</li>
+                </ul>`;
+        }
+    </script>
+</body>
+
+</html>
