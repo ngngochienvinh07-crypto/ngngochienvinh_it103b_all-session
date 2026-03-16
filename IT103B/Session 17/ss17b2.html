@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Công việc chuẩn bị Tết</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      background: #f5f5f5;
+    }
+
+    .container {
+      width: 350px;
+      margin: 50px auto;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .header {
+      background: #d32f2f;
+      color: white;
+      text-align: center;
+      padding: 15px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 10px;
+    }
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      margin-bottom: 8px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .done {
+      background: #c8e6c9;
+      text-decoration: line-through;
+    }
+
+    .todo {
+      background: #fff3cd;
+    }
+
+    button {
+      background: red;
+      color: white;
+      border: none;
+      padding: 5px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="container">
+    <header class="header">
+      <h2>Công việc chuẩn bị Tết</h2>
+      <p>Click để đánh dấu hoàn thành</p>
+    </header>
+    <ul id="todoList"></ul>
+  </div>
+
+  <script>
+    const defaultTodos = [
+      { id: 1, text: "Mua bánh chưng", done: false },
+      { id: 2, text: "Dọn dẹp nhà cửa", done: false },
+      { id: 3, text: "Mua quần áo mới", done: false },
+      { id: 4, text: "Trang trí nhà cửa", done: false },
+      { id: 5, text: "Chuẩn bị mâm ngũ quả", done: false }
+    ];
+
+    let todos = JSON.parse(localStorage.getItem("myTodos")) || defaultTodos;
+    const ul = document.getElementById("todoList");
+
+    function render() {
+
+      ul.innerHTML = "";
+
+      todos.forEach(todo => {
+
+        const li = document.createElement("li");
+        li.className = todo.done ? "done" : "todo";
+        li.textContent = todo.text;
+
+        li.onclick = () => {
+          todo.done = !todo.done;
+          localStorage.setItem("myTodos", JSON.stringify(todos));
+          render();
+        };
+
+        const btn = document.createElement("button");
+        btn.textContent = "Xóa";
+
+        btn.onclick = e => {
+          e.stopPropagation();
+          if (confirm("Bạn có chắc muốn xóa?")) {
+            todos = todos.filter(t => t.id !== todo.id);
+            localStorage.setItem("myTodos", JSON.stringify(todos));
+            render();
+          }
+        };
+
+        li.appendChild(btn);
+        ul.appendChild(li);
+
+      });
+
+    }
+
+    localStorage.setItem("myTodos", JSON.stringify(todos));
+    render();
+
+  </script>
+</body>
+</html>
