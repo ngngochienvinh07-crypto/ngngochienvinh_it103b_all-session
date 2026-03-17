@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Todo Tết</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      background: #f5f5f5
+    }
+
+    .container {
+      width: 350px;
+      margin: 50px auto;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .header {
+      background: #d32f2f;
+      color: white;
+      text-align: center;
+      padding: 15px
+    }
+
+    .inputBox {
+      display: flex;
+      padding: 10px;
+      gap: 5px;
+    }
+
+    input {
+      flex: 1;
+      padding: 8px;
+    }
+
+    button {
+      background: orange;
+      color: white;
+      border: none;
+      padding: 8px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    ul {
+      list-style: none;
+      padding: 10px
+    }
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      margin-bottom: 8px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .done {
+      background: #c8e6c9;
+      text-decoration: line-through
+    }
+
+    .todo {
+      background: #fff3cd
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="header">
+      <h2>Công việc chuẩn bị Tết</h2>
+    </div>
+
+    <div class="inputBox">
+      <input id="input" placeholder="Nhập công việc...">
+      <button onclick="addTodo()">Thêm</button>
+    </div>
+
+    <ul id="list"></ul>
+
+  </div>
+
+  <script>
+
+    const defaultTodos = [
+      { id: 1, text: "Mua bánh chưng", done: false },
+      { id: 2, text: "Dọn nhà", done: false }
+    ];
+
+    let todos = JSON.parse(localStorage.getItem("myTodos")) || defaultTodos;
+
+    const list = document.getElementById("list");
+    const input = document.getElementById("input");
+
+    function save() {
+      localStorage.setItem("myTodos", JSON.stringify(todos));
+    }
+
+    function render() {
+      list.innerHTML = "";
+
+      todos.forEach(todo => {
+
+        const li = document.createElement("li");
+        li.className = todo.done ? "done" : "todo";
+        li.textContent = todo.text;
+
+        li.onclick = () => {
+          todo.done = !todo.done;
+          save();
+          render();
+        };
+
+        const btn = document.createElement("button");
+        btn.textContent = "Xóa";
+
+        btn.onclick = e => {
+          e.stopPropagation();
+          todos = todos.filter(t => t.id !== todo.id);
+          save();
+          render();
+        };
+
+        li.appendChild(btn);
+        list.appendChild(li);
+      });
+    }
+
+    function addTodo() {
+
+      const text = input.value.trim();
+
+      if (!text) 
+        return;
+
+      todos.push({
+        id: Date.now(),
+        text,
+        done: false
+      });
+
+      input.value = "";
+      save();
+      render();
+    }
+
+    input.addEventListener("keypress", e => {
+      if (e.key === "Enter") addTodo();
+    });
+
+    save();
+    render();
+
+  </script>
+
+</body>
+
+</html>
