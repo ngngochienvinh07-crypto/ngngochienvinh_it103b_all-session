@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>📝 Quản Lý Công Việc</h1>
+            <div class="input-group">
+                <input type="text" id="taskInput" placeholder="Nhập công việc mới..." autocomplete="off" />
+                <button id="addBtn" class="btn-add">Thêm</button>
+            </div>
+        </header>
+
+        <!-- Body - Task List -->
+        <main class="task-list" id="taskList">
+            <!-- Tasks will be dynamically added here -->
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="task-counter">
+                <span id="completedCount">0</span> /
+                <span id="totalCount">0</span> công việc hoàn thành
+            </div>
+
+        </footer>
+    </div>
+
+    <script>
+        let letTask = [];
+
+        let valueInput = document.getElementById("taskInput");
+        let btn = document.getElementById("addBtn");
+        let list = document.getElementById("taskList");
+
+        btn.addEventListener("click", create);
+
+        // C
+        function create() {
+            let getValueInput = valueInput.value;
+
+            let newTask = {
+                id: Date.now,
+                name: valueInput,
+                status: false
+            }
+
+            list.push(newTask);
+            valueInput.value = ``;
+            console.log(list);
+            
+        }
+    </script>
+</body>
+
+</html>

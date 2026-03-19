@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản Lý Công Việc - Todo List</title>
+    <link rel="stylesheet" href="todo-list.css" />
+    <style>
+      .check_empty{
+        display: flex;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <header class="header">
+        <h1>📝 Quản Lý Công Việc</h1>
+        <div class="input-group">
+          <input
+            type="text"
+            id="taskInput"
+            placeholder="Nhập công việc mới..."
+            autocomplete="off"
+          />
+          <button id="addBtn" class="btn-add">Thêm</button>
+        </div>
+      </header>
+
+      <!-- Body - Task List -->
+      <main class="task-list" id="taskList">
+        <!-- Tasks will be dynamically added here -->
+          
+      </main>
+      
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="task-counter">
+          <span id="completedCount">0</span> /
+          <span id="totalCount">0</span> công việc hoàn thành
+        </div>
+       
+      </footer>
+    </div>
+
+    <script>
+
+      let listTask = [];
+
+      let valueInput = document.getElementById('taskInput');
+      let btnAdd = document.getElementById('addBtn');
+      let content = document.getElementById('taskList');
+
+      btnAdd.addEventListener('click',createTask)
+
+      // create task
+      function createTask () {
+       
+        let getValueInput = valueInput.value;
+        
+        let newTask = {
+          id: Date.now(),
+          name: getValueInput,
+          status: false
+        }
+
+        listTask.push(newTask);
+        valueInput.value = '';
+        valueInput.focus();
+        console.log("Mang hien tai",listTask);
+
+        render()
+      }
+      
+      // render 
+      function render (){
+        content.innerHTML = '';
+        if(listTask.length === 0) {
+          content.innerHTML = `
+            <div class="check_empty">
+              <span>📋</span>
+              <p>Chưa có công việc nào. Hãy thêm công việc mới!</p>
+            </div>
+          `;
+        }
+        else{
+          listTask.forEach((task) =>{
+                    let newText = document.createElement('div');
+                    newText.innerHTML= `
+                      <div>
+                      <input type="checkbox">
+                      <p>${task.name}</p>
+                      <div class="btn-task">
+                        <button>sua</button>
+                        <button>xoa</button>
+                      </div>
+                    </div>
+                    
+                    `
+                      content.appendChild(newText)
+                  })
+
+        }
+
+      }
+      document.addEventListener('DOMContentLoaded',render)
+    </script>
+
+  </body>
+</html>
