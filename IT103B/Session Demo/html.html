@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Todo</title>
+    </head>
+
+    <body>
+
+        <!-- thêm -->
+        <div>
+            <input id="todoInput" type="text" placeholder="Nhập công việc">
+            <span id="errorText" style="font-size: 10px; color: red; display: none;">
+                Công việc không được trống
+            </span>
+
+            <input id="dateInput" type="date">
+
+            <select id="statusInput">
+                <option value="">Loại công việc</option>
+                <option value="to do">to do</option>
+                <option value="pending">pending</option>
+            </select>
+            <button id="addBtn" onclick="addTodos()">Thêm công việc</button>
+        </div>
+
+        <!-- tìm -->
+        <input id="searchInput" type="text" placeholder="Tìm kiếm công việc">
+        <button id="searchBtn" onclick="findTodo()">Tìm kiếm</button>
+
+        <select id="filterSelect">
+            <option value="">Lọc theo loại công việc</option>
+            <option value="to do">to do</option>
+            <option value="pending">pending</option>
+        </select>
+
+        <!-- hiện thị -->
+        <h3>Danh sách công việc</h3>
+        <ul id="todoList"></ul>
+
+        <script src="./script.js"></script>
+</body>
+
+</html>
