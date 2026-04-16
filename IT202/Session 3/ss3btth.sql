@@ -1,0 +1,23 @@
+CREATE TABLE PRODUCTS (
+    ProductID VARCHAR(10) PRIMARY KEY,
+    ProductName VARCHAR(100),
+    Size VARCHAR(10),
+    Price DECIMAL(10,2)
+);
+INSERT INTO PRODUCTS VALUES
+('P01', 'Áo sơ mi trắng', 'L', 250000),
+('P02', 'Quần Jean xanh', 'M', 450000),
+('P03', 'Áo thun Basic', 'XL', 150000),
+('P04', 'Áo hoodie', NULL, -200000);
+UPDATE PRODUCTS
+SET Price = 400000
+WHERE ProductID = 'P02';
+UPDATE PRODUCTS
+SET Price = Price * 1.1;
+DELETE FROM PRODUCTS
+WHERE ProductID = 'P03';
+SELECT * FROM PRODUCTS;
+SELECT ProductName, Size 
+FROM PRODUCTS;
+SELECT * FROM PRODUCTS 
+WHERE Price > 300000;
